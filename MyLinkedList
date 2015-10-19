@@ -1,0 +1,102 @@
+package com.collection;
+
+import com.collection.interfacee.IMyCollections;
+
+public class MyLinkedList<T> implements IMyCollections<T> {
+	private int size;
+	private Node first;
+	private Node last;
+	
+	private class Node {
+		private T data;
+		private Node next;
+		private Node prev;
+		
+		public Node(T data) {
+			this.data = data;
+		}
+	}
+	
+	public MyLinkedList() {
+		size = 0;
+	 }
+	
+	@Override
+	public boolean add(T o) {
+		Node node = new Node(o);
+		if (first == null) {
+			first = node;
+			last = node;
+		} else {
+			last.next = node;
+			first.prev = node;
+			node.prev = last;
+			last = node;
+		}
+		size++;
+				
+		return true;
+	}
+
+	@Override
+	public boolean contains(T o) {
+		for (Node temp = first; temp != last; temp = temp.next) {
+			if (o.equals(temp.data)) {
+				System.out.println(true);
+			    return true;
+			}
+		}		 
+	return false;
+	}
+
+	@Override
+	public boolean isEmpty() {	
+		return first == null;
+	}
+
+	@Override
+	public void clear() {
+	if (size > 0) {
+		first = null;
+		last = null;
+		size = 0;
+	}
+	}
+
+	@Override
+	public void removeObject(T o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeByIndex(int position) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public T get(int position) {
+		T resultItem = null;
+		int size = 0;
+		for (Node temp = first; temp != last; temp = temp.next) {
+			if (position == size++) {
+				resultItem = (T)temp.data;
+				return resultItem;
+			}		
+		}
+		return resultItem;
+	}
+
+	@Override
+	public int size() {
+		return size;
+	}
+	
+	public void show () {
+		for (Node x = first; x != null; x = x.next) {
+			System.out.print(x.data + " ");
+		}
+	}
+
+}
